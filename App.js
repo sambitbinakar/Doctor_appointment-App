@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Tabnavigation from './App/Navigations/Tabnavigation';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { useCallback } from 'react';
+import { ClerkProvider, SignedIn, SignedOut } from '@clerk/clerk-expo';
+import LoginScreen from './App/Screens/LoginScreen';
 
 SplashScreen.preventAutoHideAsync();
 export default function App() {
@@ -25,11 +27,18 @@ export default function App() {
     return null;
   }
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <NavigationContainer>
-        <Tabnavigation/>
-      </NavigationContainer>
-    </View>
+    <ClerkProvider publishableKey='pk_test_c3VwZXJiLWJlZS00NC5jbGVyay5hY2NvdW50cy5kZXYk'>
+     <SafeAreaView style={styles.container} onLayout={onLayoutRootView}>
+        <SignedIn>
+        <LoginScreen/>
+        </SignedIn>
+        <SignedOut>
+        <NavigationContainer>
+          <Tabnavigation/>
+        </NavigationContainer>
+        </SignedOut>
+      </SafeAreaView>
+    </ClerkProvider>
   );
 }
 //

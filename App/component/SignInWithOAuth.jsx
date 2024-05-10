@@ -6,8 +6,6 @@ import { useWarmUpBrowser } from "./../../hooks/useWarmUpBrowser"
 WebBrowser.maybeCompleteAuthSession();
  
 const SignInWithOAuth = () => {
-  // Warm up the android browser to improve UX
-  // https://docs.expo.dev/guides/authentication/#improving-user-experience
   useWarmUpBrowser();
  
   const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
